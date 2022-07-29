@@ -99,6 +99,9 @@ header{
 textarea:focus, input:focus{
     outline: none;
 }
+#text_wrap{
+    overflow-wrap: break-word;
+}
 @media only screen and (max-width:600px) {
     
     .right_container{
