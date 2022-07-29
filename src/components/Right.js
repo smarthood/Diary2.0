@@ -1,5 +1,5 @@
 import React from 'react'
-import profile from './images/boy.jpeg' 
+import profile from '../images/boy.jpeg' 
 
 export default function Right() {
   return (

@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Edu+VIC+WA+NT+Beginner:wght@500&display=swap');
 :root{
     --blue: #4096E5;
     --pink: rgb(223, 47, 99);
@@ -11,7 +12,7 @@
     width: 100%;
 }
 ::selection{
-    background-color: rgb(235, 28, 114);
+    background-color: var(--pink);
     color: white;
 }
 .left_container{
@@ -35,7 +36,7 @@
    border: none;
    padding: 15px;
    border-radius: 5px;
-   height: 70%;
+   min-height: 350px;
 }
 .btn{
     margin-block: 20px;
@@ -94,6 +95,9 @@ header{
     height: 0.5px;
     background-color: rgba(128, 128, 128, 0.74);
     width: 90%;
+}
+textarea:focus, input:focus{
+    outline: none;
 }
 @media only screen and (max-width:600px) {
     
