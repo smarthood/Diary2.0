@@ -9,6 +9,8 @@ import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import { Link } from 'react-router-dom';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -71,19 +73,20 @@ export default function Navbar() {
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
+           sx={{fontFamily: "Dancing Script"}}
           >
-            Your Name
+            Diary 2.0
           </Typography>
-          <Search>
+          <Link to="/add">
+          <Search  sx={{ display: { xs: 'none', sm: 'block' }}}>
             <SearchIconWrapper>
-              <SearchIcon />
+              <AddBoxIcon />
             </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
+            <StyledInputBase sx={{cursor: "pointer"}}
+              placeholder="Add today's Diary"
             />
           </Search>
+          </Link>
           <div>
               <IconButton
                 size="large"

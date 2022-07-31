@@ -1,9 +1,8 @@
 import "./styles/App.css";
-import Left from "./components/Left";
 import Main from "./components/Main";
-import Right from "./components/Right";
-import {BrowserRouter as Router,Routes,Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router,Route, Switch} from 'react-router-dom';
 import AddNotes from "./components/AddNotes";
+import Home from "./components/Star";
 
 function App() {
 
@@ -11,9 +10,12 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/">
+          <Home/>
+        </Route>
+        <Route  path="/diary">
           <Main/>
         </Route>
-        <Route path="/add_new">
+        <Route path="/add">
           <AddNotes/>
         </Route>
       </Switch>

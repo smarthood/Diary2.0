@@ -1,8 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Caveat&family=Edu+VIC+WA+NT+Beginner:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
 :root{
     --blue: #4096E5;
     --pink: rgb(223, 47, 99);
+}
+a{
+    text-decoration: none;
+    color: inherit;
 }
 .app{
     height: 100vh;
@@ -10,6 +15,7 @@
     flex-direction: row;
     background-color: var(--blue);
     width: 100%;
+
 }
 ::selection{
     background-color: var(--pink);
@@ -108,7 +114,8 @@ textarea:focus, input:focus{
     content: '';
     position: absolute;
     right: 30%;
-    height: 100%;
+    margin-top: 40px;
+    height: calc(93%);
     width: 2px;
     background: rgba(255,0,0,0.4);
   }
@@ -119,7 +126,9 @@ textarea:focus, input:focus{
     background-image: repeating-linear-gradient(white 0px, white 24px, steelblue 25px);
   }
 @media only screen and (max-width:600px) {
-    
+    #text_wrap::before{
+        right: 70%
+    }
     .right_container{
         display: none;
         background-color: white;
