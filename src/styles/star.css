@@ -6,7 +6,8 @@ html, body {
     display: none;
 }
 .starContainer{
-    height: 100vh;
+  position: relative;
+    max-height: 100vh;
       background-image: radial-gradient(ellipse at top, #080e21 0%, #1b2735 95%);
 
   }

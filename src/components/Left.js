@@ -1,16 +1,19 @@
 import React ,{useState} from 'react'
 import '../styles/App.css'
 import { Box } from '@mui/system'
-import { AppBar, Button, ButtonGroup, IconButton, Stack, Toolbar, Typography } from '@mui/material'
-import { PhotoCamera } from '@mui/icons-material'
+import { AppBar, Button, ButtonGroup, Drawer, IconButton, Stack, Toolbar, Typography } from '@mui/material'
+import { ArrowBack, PhotoCamera } from '@mui/icons-material'
+import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import {addDoc, collection, Timestamp} from 'firebase/firestore';
 import {getDownloadURL, ref, uploadBytesResumable} from 'firebase/storage'
 import { storage } from '../utils/firebase'
 import { ToastContainer, toast } from 'react-toastify';
-import { db } from '../utils/firebase'
+import { db,auth } from '../utils/firebase'
 import 'react-toastify/dist/ReactToastify.css';
+import {Link} from 'react-router-dom'
 
 export default function Left() {
+  const [isDrawerOpen,setIsDrawerOpen]=useState(false)
 const [progressBar,setProgressBar]=useState(0)
   const today = new Date()
   var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
@@ -23,7 +26,7 @@ const [progressBar,setProgressBar]=useState(0)
     {
       title: "",
       desc: "",
-      image: "null",
+      image: "",
       createdAt: Timestamp.now().toDate()
     }
   )
@@ -31,7 +34,6 @@ const [progressBar,setProgressBar]=useState(0)
     setFormData({...formData,[e.target.name]:e.target.value})
   }
   const handleImageChange=(e)=>{
-    console.log(e.target.files);
     setImageUrl(URL.createObjectURL(e.target.files[0]))
     setFormData({...formData,image:e.target.files[0]});
   }
@@ -54,11 +56,11 @@ const [progressBar,setProgressBar]=useState(0)
         setFormData({
           title: "",
           desc: "",
-          image: ""
+          image: null
         });
         getDownloadURL(uploadImage.snapshot.ref)
         .then((url)=>{
-          const notesRef = collection(db,"Notes");
+          const notesRef = collection(db,auth.currentUser.uid);
           addDoc(notesRef,{
             title: formData.title,
             description: formData.desc,
@@ -66,7 +68,7 @@ const [progressBar,setProgressBar]=useState(0)
             createAt: Timestamp.now().toDate() 
           })
           .then(()=>{
-            toast("Article added successfully",{type: "success"});
+            toast("Entry added successfully",{type: "success"});
             setProgressBar(0);
           })
           .catch((err)=>{
@@ -75,16 +77,26 @@ const [progressBar,setProgressBar]=useState(0)
         })
       })
   }
-   const [imageUrl, setImageUrl] = useState("https://w0.peakpx.com/wallpaper/448/123/HD-wallpaper-anime-your-name-kimi-no-na-wa-comet.jpg");
+   const [imageUrl, setImageUrl] = useState("https://c4.wallpaperflare.com/wallpaper/974/841/151/kimi-no-na-wa-minimalism-wallpaper-preview.jpg");
   return (
     <Box bgcolor="dodgerblue" minHeight="100vh" overflow={'hidden'}>
+     
       <Stack direction="row" justifyContent="space-between">
     <Box flex={8}>
     <AppBar sx={{color:"white",zIndex:"0"}} color="transparent" position="static" elevation="0" >
         <Toolbar sx={{ displey: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between'}}>
-        <Typography variant='h5' sx={{fontFamily: 'Anton',fontSize: '30px'}}>TODAY'S ADVENTURE</Typography>
+             <Link to="/">
+       <Box sx={{zIndex:"50000"}}>
+      <IconButton sx={{position: "absolute",left:"10px",top:"10px"}}>
+        <ArrowBack />
+      </IconButton>
+      </Box>
+      </Link>
+        <Button variant="container" onClick={()=>setIsDrawerOpen(true)} sx={{background:"white",color:"black",display:{md:"none"},marginRight:"-10px"}}>
+          Preview
+        </Button>
         </Toolbar>
       </AppBar>
         <ToastContainer/>
@@ -121,6 +133,37 @@ const [progressBar,setProgressBar]=useState(0)
   </ButtonGroup>
       </Box>
     </Box>
+    <Drawer anchor='right' open={isDrawerOpen} onClose={()=>setIsDrawerOpen(false)}>
+      <Box>
+      <IconButton onClick={()=>setIsDrawerOpen(false)} sx={{position: "absolute",left:"10px",top:"10px"}}>
+        <ClearOutlinedIcon />
+      </IconButton>
+      </Box>
+    <Box id="text_wrap" maxWidth="500px"  minHeight="100vh" p={3} flex={4} sx={{ boxShadow: 3}}>
+      <Box component="div" className="lines">
+      <Typography sx={{margin:{sm: "15px 15px 0 0",color: "black"},textAlign: "right"}}>{date}</Typography>
+      <Typography sx={{fontFamily: 'Edu VIC WA NT Beginner',fontSize:"30px",textAlign:"center",textTransform:"capitalize"}}>{formData.title}</Typography>
+      <Box component="div" sx={{display: "flex",justifyContent:"center"}}>
+      <div className="img-tape img-tape--2">
+    <Box
+        component="img"
+        sx={{
+          height: "auto",
+          width: 250,
+          border: "5px solid white",
+          marginInline:5
+        }}
+        alt="The house from the offer."
+        src={imageUrl}
+        />
+        </div>
+        </Box>
+      <Box sx={{marginLeft:"15%"}}>
+    <Typography sx={{fontFamily:"Shadows Into Light",fontSize:"20px",marginTop:"10px"}}>{formData.desc}</Typography>
+      </Box>
+        </Box>
+    </Box>
+  </Drawer>
     <Box id="text_wrap" maxWidth="500px"  minHeight="100vh" p={3} flex={4} sx={{ boxShadow: 3,display: { xs: 'none', md: 'block',sm: 'none' }}}>
       <div className="lines">
       <Typography sx={{margin:{sm: "15px 15px 0 0",color: "black"},textAlign: "right"}}>{date}</Typography>

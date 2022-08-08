@@ -1,8 +1,8 @@
 import "./styles/App.css";
-import Main from "./components/Main";
+import Main from "./pages/Main";
 import {BrowserRouter as Router,Route, Switch} from 'react-router-dom';
-import AddNotes from "./components/AddNotes";
-import Home from "./components/Star";
+import Left from "./components/Left";
+import Home from "./pages/Home";
 
 function App() {
 
@@ -16,7 +16,7 @@ function App() {
           <Main/>
         </Route>
         <Route path="/add">
-          <AddNotes/>
+          <Left/>
         </Route>
       </Switch>
     </Router>
