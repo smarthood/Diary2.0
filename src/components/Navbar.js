@@ -28,7 +28,7 @@ export default function Navbar({setIsDrawerOpen}) {
           <IconButton 
           sx={{
               color: 'white',
-              display: { xs: 'block', sm: 'none' }
+              display: { xs: 'block', sm: 'block',md:"none" }
             }}
             onClick={()=>setIsDrawerOpen(true)}
             >
@@ -38,9 +38,9 @@ export default function Navbar({setIsDrawerOpen}) {
             variant="h6"
             noWrap
             component="div"
-           sx={{fontFamily: "Dancing Script"}}
+           sx={{fontFamily: "source sans pro",fontWeight:"bold"}}
           >
-            Diary 2.0
+            Torii
           </Typography>
           <Link to="/add">
           <Button startIcon={<AddBoxIcon />} variant="contained" sx={{background:"white",color:"GrayText",display:{xs:"none",md:"flex"},'&:hover': {

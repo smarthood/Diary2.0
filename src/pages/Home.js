@@ -46,7 +46,7 @@ return(
     <Main />
     ):(
 <div className="starContainer">
-  <Box sx={{width:"100%",display:"flex",justifyContent:"flex-end" ,color:"white",right:0,padding:"10px"}}>
+  <Box sx={{width:"100%",display:"flex",justifyContent:"flex-end" ,color:"white",right:"10px",padding:"10px 20px 0 0"}}>
     <a href="https://www.instagram.com/renold_dickson/">
     <Instagram />
     </a>

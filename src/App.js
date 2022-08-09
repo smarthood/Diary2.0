@@ -3,7 +3,8 @@ import Main from "./pages/Main";
 import {BrowserRouter as Router,Route, Switch} from 'react-router-dom';
 import Left from "./components/Left";
 import Home from "./pages/Home";
-
+import Album from "./pages/Album";
+import TimeLine from "./pages/Timeline";
 function App() {
 
   return (
@@ -17,6 +18,12 @@ function App() {
         </Route>
         <Route path="/add">
           <Left/>
+        </Route>
+        <Route path="/album">
+          <Album/>
+        </Route>
+        <Route path="/timeline">
+          <TimeLine/>
         </Route>
       </Switch>
     </Router>
