@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
-import {Grid, Card, CardMedia, Typography,CardContent, CardActions, Button, Box, Stack, Drawer, Divider, Paper} from '@mui/material'
+import {Grid, Card, CardMedia, Typography,CardContent, CardActions, Button, Box, Stack, Divider, Paper} from '@mui/material'
 import { useState, useEffect } from 'react'
 import {collection,orderBy,query,onSnapshot,deleteDoc,doc} from 'firebase/firestore'
 import { db,auth,storage,logout } from '../utils/firebase'
@@ -11,7 +11,7 @@ import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import entry from '../images/enter.png'
 import { toast } from 'react-toastify';
 import { deleteObject, ref } from 'firebase/storage';
-import { Logout, Search,Timeline,Home } from '@mui/icons-material';
+import { Logout,Timeline,Home } from '@mui/icons-material';
 import DrawerComponent from '../components/DrawerComponent';
 import { Link } from 'react-router-dom';
 import LeftBar from '../components/LeftBar';
@@ -61,7 +61,7 @@ const handleDelete=async(id,image)=>{
   }
   const handleClickOpen = (id) => {
     const res=notes.find((item)=>{
-      return item.id==id
+      return item.id===id
     })
     setData(res)
     setOpen(true);
