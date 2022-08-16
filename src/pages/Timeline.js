@@ -9,7 +9,7 @@ import TimelineDot from '@mui/lab/TimelineDot';
 import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
 import {auth,db} from '../utils/firebase'
 import {collection,orderBy,query,onSnapshot} from 'firebase/firestore'
-
+import notes from './Main'
 export default function TimeLine() {
 //   const [notes,setNotes]=useState([])
 //   useEffect(()=>{
@@ -27,16 +27,18 @@ export default function TimeLine() {
     <div>
       <SecondNav title={"Timeline"} />
       <Timeline position="alternate">
+      {notes.map(({id,title,description})=>
         <TimelineItem>
           <TimelineOppositeContent color="text.secondary">
-          12/11/2012
+          {id}
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineDot variant="outlined" color="primary"/>
             <TimelineConnector />
           </TimelineSeparator>
-          <TimelineContent>dickson</TimelineContent>
+          <TimelineContent>{title}</TimelineContent>
         </TimelineItem>
+        )}
       </Timeline>
     </div>
   )

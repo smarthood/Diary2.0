@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
-import {Grid, Card, CardMedia, Typography,CardContent, CardActions, Button, Box, Stack, Drawer, Divider} from '@mui/material'
+import {Grid, Card, CardMedia, Typography,CardContent, CardActions, Button, Box, Stack, Drawer, Divider, Paper} from '@mui/material'
 import { useState, useEffect } from 'react'
 import {collection,orderBy,query,onSnapshot,deleteDoc,doc} from 'firebase/firestore'
 import { db,auth,storage,logout } from '../utils/firebase'
@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function Main(){
 const classes = useStyles();
+const [data,setData]=useState([])
 const [notes,setNotes]=useState([])
 const [isDrawerOpen,setIsDrawerOpen] = useState(false)
 const [open, setOpen] = useState(false);
@@ -58,7 +59,11 @@ const handleDelete=async(id,image)=>{
       console.log(e);
     }}
   }
-  const handleClickOpen = () => {
+  const handleClickOpen = (id) => {
+    const res=notes.find((item)=>{
+      return item.id==id
+    })
+    setData(res)
     setOpen(true);
   };
        const handleClose = () => {
@@ -114,10 +119,9 @@ useEffect(()=>{
             }));
             setNotes(note);
         })
-        console.log(notes)
     },[])
 return(
-  <Box>
+  <Paper>
   <Navbar setIsDrawerOpen={setIsDrawerOpen}/>
     <Add />
      <Stack direction='row' justifyContent="space-between">
@@ -127,7 +131,7 @@ return(
     <Grid  container spacing={4}  >
         {notes.length === 0 ? (
           <Box sx={{display:"flex",flexDirection: "column",alignItems: "center",width: "100%",height: "100vh"}}>
-            <Box component="img" src={entry} alt="nothing" width="350px"></Box>
+            <Box component="img" src={entry} alt="nothing" width="350px" loading='lazy'></Box>
           <Typography >Not written aanything yet? 😶</Typography>
           </Box>
           ):(
@@ -139,16 +143,16 @@ return(
         open={open}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
-        key={id}
       >
         <DialogTitle id="responsive-dialog-title">
-          {title}
+          {data.title}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-           {description}
+           {data.description}
           </DialogContentText>
         </DialogContent>
+        <Box component="img" src={data.image} sx={{width:{xs:"100%" ,md:"auto"}, height: {xs:"auto",md:"400px"},padding:"20px"}}/> 
         <DialogActions>
           <Button onClick={handleClose} autoFocus>
            Close
@@ -161,7 +165,7 @@ return(
                     <Typography className={classes.title}>{createAt.toDate().toDateString()}</Typography>
                   </CardContent>
                   <CardActions>
-                    <Button onClick={()=>handleClickOpen(id,title,description,image)}>View</Button>
+                    <Button onClick={()=>handleClickOpen(id)}>View</Button>
                     <Button onClick={() => handleDelete(id,image)}>Delete</Button>
                   </CardActions>
                 </Card>
@@ -170,6 +174,6 @@ return(
         </Grid>
         </Box>
         </Stack>
-        </Box>
+        </Paper>
 );
 }
