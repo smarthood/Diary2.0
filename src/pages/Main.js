@@ -152,7 +152,9 @@ return(
            {data.description}
           </DialogContentText>
         </DialogContent>
-        <Box component="img" src={data.image} sx={{width:{xs:"100%" ,md:"auto"}, height: {xs:"auto",md:"400px"},padding:"20px"}}/> 
+        <Box sx={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+        <Box component="img" src={data.image} sx={{width:{xs:"90%" ,md:"auto"}, height: {xs:"auto",md:"400px"},padding:"20px"}}/> 
+        </Box>
         <DialogActions>
           <Button onClick={handleClose} autoFocus>
            Close
