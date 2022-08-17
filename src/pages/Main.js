@@ -9,7 +9,7 @@ import Add from '../components/Add'
 import {  List, ListItem, ListItemButton, ListItemIcon,ListItemText,DialogTitle,DialogContent,DialogContentText,DialogActions,Dialog } from '@mui/material';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import entry from '../images/enter.png'
-import { toast } from 'react-toastify';
+import { ToastContainer,toast } from 'react-toastify';
 import { deleteObject, ref } from 'firebase/storage';
 import { Logout,Timeline,Home } from '@mui/icons-material';
 import DrawerComponent from '../components/DrawerComponent';
@@ -17,6 +17,7 @@ import { Link } from 'react-router-dom';
 import LeftBar from '../components/LeftBar';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+
 
 const useStyles = makeStyles((theme) => ({
       Card: {
@@ -123,6 +124,7 @@ useEffect(()=>{
 return(
   <Paper>
   <Navbar setIsDrawerOpen={setIsDrawerOpen}/>
+  <ToastContainer/>
     <Add />
      <Stack direction='row' justifyContent="space-between">
    <LeftBar Items={Items} />
@@ -132,7 +134,7 @@ return(
         {notes.length === 0 ? (
           <Box sx={{display:"flex",flexDirection: "column",alignItems: "center",width: "100%",height: "100vh"}}>
             <Box component="img" src={entry} alt="nothing" width="350px" loading='lazy'></Box>
-          <Typography >Not written aanything yet? 😶</Typography>
+          <Typography >Not written anything yet? 😶</Typography>
           </Box>
           ):(
             notes.map(({id,title,description,createAt,image})=>

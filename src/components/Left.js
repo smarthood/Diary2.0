@@ -94,18 +94,21 @@ const [progressBar,setProgressBar]=useState(0)
       </IconButton>
       </Box>
       </Link>
-        <Button variant="container" onClick={()=>setIsDrawerOpen(true)} sx={{background:"white",color:"black",display:{md:"none"},marginRight:"-10px"}}>
+        <Button variant="container" onClick={()=>setIsDrawerOpen(true)} sx={{background:"white",color:"black",display:{md:"none"},marginRight:"10px"}}>
           Preview
         </Button>
         </Toolbar>
       </AppBar>
         <ToastContainer/>
+        <Box sx={{width:{xs:"100vw",md:"100%"},paddingLeft:{xs:"10%"}}}>
       <Box 
       id="frm"
       component="form" sx={{
-        paddingInline: "80px",
+        paddingInline:{md:"80px",xs:"0"},
         display: 'flex',
         flexDirection: "column",
+        marginRight: {xs:"80px"},
+        maxWidth:"100%",
       }}>
      <input type="text" className="input" name="title" placeholder="Title here....." value={formData.title} onChange={(e)=>handleOnChange(e)}/>
       <textarea  id="text-box" cols="30" name="desc" placeholder="How is your day today?" rows="10" value={formData.desc} onChange={(e)=>handleOnChange(e)}></textarea>
@@ -132,6 +135,7 @@ const [progressBar,setProgressBar]=useState(0)
   }}} onClick={handleClear}>CLEAR</Button>
   </ButtonGroup>
       </Box>
+    </Box>
     </Box>
     <Drawer anchor='right' open={isDrawerOpen} onClose={()=>setIsDrawerOpen(false)}>
       <Box>
