@@ -33,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
       fontFamily: 'Source Sans Pro',
-      color: 'CaptionText'
+      color: 'CaptionText',
+      textTransform:"capitalize"
     },
     FeaturesContainer: {
         height: '100vh',
@@ -138,15 +139,13 @@ return(
           </Box>
           ):(
             notes.map(({id,title,description,createAt,image})=>
-              <Grid key={id}  item xs={12} md={4}  sm={6}>
-                <Card className={classes.Card}>
-                <Dialog
+            <Dialog
         fullScreen={fullScreen}
         open={open}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title">
+        <DialogTitle id="responsive-dialog-title" sx={{textTransform:"capitalize"}}>
           {data.title}
         </DialogTitle>
         <DialogContent>
@@ -163,9 +162,11 @@ return(
           </Button>
         </DialogActions>
       </Dialog>
+              <Grid key={id}  item xs={12} md={4}  sm={6}>
+                <Card className={classes.Card}>
                   <CardMedia image={image}  className={classes.CardMedia} />
                   <CardContent>
-                    <Typography gutterBottom variant='h6'>{title}</Typography>
+                    <Typography gutterBottom variant='h6' sx={{textTransform:"capitalize"}}>{title}</Typography>
                     <Typography className={classes.title}>{createAt.toDate().toDateString()}</Typography>
                   </CardContent>
                   <CardActions>
