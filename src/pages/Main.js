@@ -139,12 +139,13 @@ return(
           </Box>
           ):(
             notes.map(({id,title,description,createAt,image})=>
+            <Grid key={id}  item xs={12} md={4}  sm={6}>
             <Dialog
         fullScreen={fullScreen}
         open={open}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
-      >
+        >
         <DialogTitle id="responsive-dialog-title" sx={{textTransform:"capitalize"}}>
           {data.title}
         </DialogTitle>
@@ -162,7 +163,6 @@ return(
           </Button>
         </DialogActions>
       </Dialog>
-              <Grid key={id}  item xs={12} md={4}  sm={6}>
                 <Card className={classes.Card}>
                   <CardMedia image={image}  className={classes.CardMedia} />
                   <CardContent>
