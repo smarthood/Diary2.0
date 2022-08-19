@@ -164,7 +164,7 @@ return(
           <Typography >Not written anything yet? 😶</Typography>
           </Box>
           ):(
-            notes.map(({id,title,description,createAt,image})=>
+            notes.slice(0).reverse().map(({id,title,description,createAt,image})=>
             <Grid key={id}  item xs={12} md={4}  sm={6}>
                 <Card className={classes.Card}>
                   <CardMedia image={image}  className={classes.CardMedia} />

@@ -45,7 +45,7 @@ function Album({isALDrawerOpen,setALDrawerOpen,tdata}) {
               <Box component="img" src={ALbg} alt="nothing" width="350px" mt="60px" loading='lazy'></Box>
             <Typography >Not written anything yet? 😶</Typography>
             </Box>
-            ):(tdata.slice(0).reverse().map((items, index) => (
+            ):(tdata.map((items, index) => (
           <div key={items.id}>
             {Math.abs(activeStep - index) <= 2 ? (
               <Box id="text_wrap_alt"  maxWidth="500px" flex={4}>

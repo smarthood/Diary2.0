@@ -20,7 +20,7 @@ export default function TimeLine({isTLDrawerOpen,setTLDrawerOpen,tdata}) {
             <Box component="img" src={TLbg} alt="nothing" width="350px" loading='lazy'></Box>
           <Typography >Not written anything yet? 😶</Typography>
           </Box>
-          ):(tdata.slice(0).reverse().map(items=>
+          ):(tdata.map(items=>
         <TimelineItem key={items.id}>
           <TimelineOppositeContent color="text.secondary">
           {items.createAt.toDate().toDateString()}
