@@ -2,43 +2,20 @@ import * as React from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MobileStepper from '@mui/material/MobileStepper';
-import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
-import { autoPlay } from 'react-swipeable-views-utils';
 import SecondNav from '../components/SecondNav';
-const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+import { Drawer } from '@mui/material';
+import ALbg from '../images/albg.png'
 
-const images = [
-  {
-    label: 'San Francisco – Oakland Bay Bridge, United States',
-    imgPath:
-      'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
-  },
-  {
-    label: 'Bird',
-    imgPath:
-      'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
-  },
-  {
-    label: 'Bali, Indonesia',
-    imgPath:
-      'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250',
-  },
-  {
-    label: 'Goč, Serbia',
-    imgPath:
-      'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-  },
-];
-
-function Album() {
+const AutoPlaySwipeableViews = SwipeableViews;
+function Album({isALDrawerOpen,setALDrawerOpen,tdata}) {
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
-  const maxSteps = images.length;
+  const maxSteps = tdata.length;
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -53,46 +30,53 @@ function Album() {
   };
 
   return (
-    <Box sx={{ maxWidth: 400, flexGrow: 1 }}>
-      <SecondNav title={"Album"} />
-      <Paper
-        square
-        elevation={0}
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          height: 50,
-          pl: 2,
-          bgcolor: 'background.default',
-        }}
-      >
-        <Typography>{images[activeStep].label}</Typography>
-      </Paper>
+    
+    <Drawer anchor='bottom' open={isALDrawerOpen} onClose={()=>setALDrawerOpen(false)} PaperProps={{style: { height: "100vh",background:"white",display:"flex",justifyContent:"center",alignItems:"center"} }}>
+    <Box sx={{ maxWidth:{xs:"100%",md:400} , flexGrow: 1,background:"white" }}>
+      <SecondNav setALDrawerOpen={setALDrawerOpen} title={"Album"} />
       <AutoPlaySwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={activeStep}
         onChangeIndex={handleStepChange}
         enableMouseEvents
-      >
-        {images.map((step, index) => (
-          <div key={step.label}>
+        >
+        {tdata.length === 0 ? (
+            <Box sx={{display:"flex",flexDirection: "column",alignItems: "center",width: "100%",height: "100vh",background:"rgba(255, 255, 255, 0)"}}>
+              <Box component="img" src={ALbg} alt="nothing" width="350px" mt="60px" loading='lazy'></Box>
+            <Typography >Not written anything yet? 😶</Typography>
+            </Box>
+            ):(tdata.slice(0).reverse().map((items, index) => (
+          <div key={items.id}>
             {Math.abs(activeStep - index) <= 2 ? (
-              <Box
+              <Box id="text_wrap_alt"  maxWidth="500px" flex={4}>
+              <Box component="div" className="lines" sx={{minHeight:"80vh"}}>
+              <Typography sx={{margin:{sm: "15px 15px 0 0",color: "black"},textAlign: "right"}}>{items.createAt.toDate().toLocaleDateString("ta-IN")}</Typography>
+              <Typography sx={{fontFamily: 'Edu VIC WA NT Beginner',fontSize:"30px",textAlign:"center",textTransform:"capitalize"}}>{items.title}</Typography>
+              <Box component="div" sx={{display: "flex",justifyContent:"center"}}>
+              <div className="img-tape img-tape--2">
+            <Box
                 component="img"
                 sx={{
-                  height: 255,
-                  display: 'block',
-                  maxWidth: 400,
-                  overflow: 'hidden',
-                  width: '100%',
+                  height: "auto",
+                  width: 250,
+                  border: "5px solid white",
+                  marginInline:5
                 }}
-                src={step.imgPath}
-                alt={step.label}
-              />
+                alt="The house from the offer."
+                src={items.image}
+                />
+                </div>
+                </Box>
+              <Box sx={{marginLeft:"15%"}}>
+            <Typography sx={{fontFamily:"Shadows Into Light",fontSize:"20px",marginTop:"10px"}}>{items.description}</Typography>
+              </Box>
+                </Box>
+            </Box>
             ) : null}
           </div>
-        ))}
+        )))}
       </AutoPlaySwipeableViews>
+        {tdata.length !==0 &&
       <MobileStepper
         steps={maxSteps}
         position="static"
@@ -121,8 +105,9 @@ function Album() {
             Back
           </Button>
         }
-      />
+      />}
     </Box>
+    </Drawer>
   );
 }
 

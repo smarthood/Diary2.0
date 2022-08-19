@@ -110,8 +110,8 @@ textarea:focus, input:focus{
     outline: none;
 }
 #text_wrap{
-    overflow-wrap: break-word;
     background: rgba(211, 241, 240, 0.9);
+    overflow-wrap: break-word;
     box-shadow: 0px 0px 5px 0px #888;
 }
 #text_wrap::before {
@@ -122,6 +122,9 @@ textarea:focus, input:focus{
     height: calc(93%);
     width: 2px;
     background: rgba(255,0,0,0.4);
+  }
+  #text_wrap_alt{
+    overflow-wrap: break-word;
   }
   .lines {
     margin-top: 40px;
@@ -171,12 +174,25 @@ textarea:focus, input:focus{
     width: 100px;
   }
   .img-tape--2:before {
-    left: -40px;
-    top: 10px;
+    left: 0px;
+    top: 0px;
     transform: rotate(-35deg);
   }
   .img-tape--2:after {
+    right: 0px;
+    top: 15px;
+    transform: rotate(45deg);
+  }
+  .img-tape--a:before {
+    left: -40px;
+    top: 0px;
+    transform: rotate(-35deg);
+  }
+  .img-tape--a:after {
     right: -40px;
     top: 15px;
     transform: rotate(45deg);
+  }
+  #drawbg{
+    background:linear-gradient(to right top, blue, pink)
   }

@@ -17,6 +17,8 @@ import { Link } from 'react-router-dom';
 import LeftBar from '../components/LeftBar';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import TimeLine from './Timeline';
+import Album from './Album';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -43,6 +45,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function Main(){
 const classes = useStyles();
+const [isTLDrawerOpen,setTLDrawerOpen]=useState(false)
+const [isALDrawerOpen,setALDrawerOpen]=useState(false)
 const [data,setData]=useState([])
 const [notes,setNotes]=useState([])
 const [isDrawerOpen,setIsDrawerOpen] = useState(false)
@@ -71,6 +75,7 @@ const handleDelete=async(id,image)=>{
        const handleClose = () => {
     setOpen(false);
   };
+  const tdata = notes.reverse()
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 const Items = (<List>
   <ListItem >
@@ -81,26 +86,22 @@ const Items = (<List>
          <ListItemText primary="Home " />
        </ListItemButton>
      </ListItem>
-     <Link to="/album">
      <ListItem >
-       <ListItemButton>
+       <ListItemButton onClick={()=>setALDrawerOpen(true)} >
          <ListItemIcon>
            <AutoStoriesIcon />
          </ListItemIcon>
          <ListItemText primary="Album" />
        </ListItemButton>
      </ListItem>
-     </Link>
-     <Link to="/timeline">
      <ListItem  >
-       <ListItemButton>
+       <ListItemButton onClick={()=>setTLDrawerOpen(true)}>
          <ListItemIcon>
            <Timeline />
          </ListItemIcon>
          <ListItemText primary="Timeline" />
        </ListItemButton>
      </ListItem>
-     </Link>
      <Divider />
      <ListItem >
        <ListItemButton onClick={logout}>
@@ -127,20 +128,9 @@ return(
   <Navbar setIsDrawerOpen={setIsDrawerOpen}/>
   <ToastContainer/>
     <Add />
-     <Stack direction='row' justifyContent="space-between">
-   <LeftBar Items={Items} />
-  <DrawerComponent Items={Items} isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen}/>
-<Box flex={10} p={3} component="div" maxWidth="md">
-    <Grid  container spacing={4}  >
-        {notes.length === 0 ? (
-          <Box sx={{display:"flex",flexDirection: "column",alignItems: "center",width: "100%",height: "100vh"}}>
-            <Box component="img" src={entry} alt="nothing" width="350px" loading='lazy'></Box>
-          <Typography >Not written anything yet? 😶</Typography>
-          </Box>
-          ):(
-            notes.map(({id,title,description,createAt,image})=>
-            <Grid key={id}  item xs={12} md={4}  sm={6}>
-            <Dialog
+    <TimeLine  isTLDrawerOpen={isTLDrawerOpen} setTLDrawerOpen={setTLDrawerOpen} tdata={tdata} />
+    <Album  isALDrawerOpen={isALDrawerOpen} setALDrawerOpen={setALDrawerOpen} tdata={tdata} />
+    <Dialog
         fullScreen={fullScreen}
         open={open}
         onClose={handleClose}
@@ -163,6 +153,19 @@ return(
           </Button>
         </DialogActions>
       </Dialog>
+     <Stack direction='row' justifyContent="space-between">
+   <LeftBar Items={Items} />
+  <DrawerComponent Items={Items} isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen}/>
+<Box flex={10} p={3} component="div" maxWidth="md">
+    <Grid  container spacing={4}  >
+        {notes.length === 0 ? (
+          <Box sx={{display:"flex",flexDirection: "column",alignItems: "center",width: "100%",height: "100vh"}}>
+            <Box component="img" src={entry} alt="nothing" width="350px" loading='lazy'></Box>
+          <Typography >Not written anything yet? 😶</Typography>
+          </Box>
+          ):(
+            notes.map(({id,title,description,createAt,image})=>
+            <Grid key={id}  item xs={12} md={4}  sm={6}>
                 <Card className={classes.Card}>
                   <CardMedia image={image}  className={classes.CardMedia} />
                   <CardContent>
@@ -174,8 +177,8 @@ return(
                     <Button onClick={() => handleDelete(id,image)}>Delete</Button>
                   </CardActions>
                 </Card>
-               </Grid>)
-        )}
+               
+               </Grid>))}
         </Grid>
         </Box>
         </Stack>

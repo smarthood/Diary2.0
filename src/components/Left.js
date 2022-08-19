@@ -1,7 +1,7 @@
 import React ,{useState} from 'react'
 import '../styles/App.css'
 import { Box } from '@mui/system'
-import { AppBar, Button, ButtonGroup, Drawer, IconButton, Stack, Toolbar, Typography } from '@mui/material'
+import { AppBar, Button, ButtonGroup, Drawer, IconButton, LinearProgress, Stack, Toolbar, Typography } from '@mui/material'
 import { ArrowBack, PhotoCamera } from '@mui/icons-material'
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import {addDoc, collection, Timestamp} from 'firebase/firestore';
@@ -68,7 +68,6 @@ const [progressBar,setProgressBar]=useState(0)
             createAt: Timestamp.now().toDate() 
           })
           .then(()=>{
-            toast("Entry added successfully",{type: "success"});
             setProgressBar(0);
           })
           .catch((err)=>{
@@ -80,7 +79,7 @@ const [progressBar,setProgressBar]=useState(0)
    const [imageUrl, setImageUrl] = useState("https://c4.wallpaperflare.com/wallpaper/974/841/151/kimi-no-na-wa-minimalism-wallpaper-preview.jpg");
   return (
     <Box bgcolor="dodgerblue" minHeight="100vh" overflow={'hidden'}>
-     
+     <LinearProgress variant="determinate" color="warning" value={progressBar} />
       <Stack direction="row" justifyContent="space-between">
     <Box flex={8}>
     <AppBar sx={{color:"white",zIndex:"0"}} color="transparent" position="static" elevation="0" >
@@ -173,7 +172,7 @@ const [progressBar,setProgressBar]=useState(0)
       <Typography sx={{margin:{sm: "15px 15px 0 0",color: "black"},textAlign: "right"}}>{date}</Typography>
       <Typography sx={{fontFamily: 'Edu VIC WA NT Beginner',fontSize:"30px",textAlign:"center",textTransform:"capitalize"}}>{formData.title}</Typography>
       <Box component="div" sx={{display: "flex",justifyContent:"center"}}>
-      <div className="img-tape img-tape--2">
+      <div className="img-tape img-tape--a">
     <Box
         component="img"
         sx={{

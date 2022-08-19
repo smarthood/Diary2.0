@@ -7,23 +7,32 @@ import TimelineConnector from '@mui/lab/TimelineConnector';
 import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
 import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
-import notes from './Main'
-export default function TimeLine() {
+import { Box, Drawer, Typography } from '@mui/material';
+import TLbg from '../images/tlbg.png'
+export default function TimeLine({isTLDrawerOpen,setTLDrawerOpen,tdata}) {
+
   return (
-    <div>
-      <SecondNav title={"Timeline"} />
+    <Drawer anchor='top' open={isTLDrawerOpen} onClose={()=>setTLDrawerOpen(false)} PaperProps={{ style: { height: "100vh",background:"#FFF8FF" } }}>
+      <SecondNav title={"Timeline"} setTLDrawerOpen={setTLDrawerOpen}/>
       <Timeline position="alternate">
-        <TimelineItem>
+        {tdata.length === 0 ? (
+          <Box sx={{display:"flex",flexDirection: "column",alignItems: "center",width: "100%",height: "100vh"}}>
+            <Box component="img" src={TLbg} alt="nothing" width="350px" loading='lazy'></Box>
+          <Typography >Not written anything yet? 😶</Typography>
+          </Box>
+          ):(tdata.slice(0).reverse().map(items=>
+        <TimelineItem key={items.id}>
           <TimelineOppositeContent color="text.secondary">
-          18/11/2001
+          {items.createAt.toDate().toDateString()}
           </TimelineOppositeContent>
           <TimelineSeparator>
-            <TimelineDot variant="outlined" color="primary"/>
+            <TimelineDot variant="outlined" color='primary'/>
             <TimelineConnector />
           </TimelineSeparator>
-          <TimelineContent>title</TimelineContent>
+          <TimelineContent>{items.title}</TimelineContent>
         </TimelineItem>
+          ))}
       </Timeline>
-    </div>
+    </Drawer>
   )
 }
