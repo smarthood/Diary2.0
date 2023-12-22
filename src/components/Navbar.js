@@ -1,9 +1,6 @@
 import React from 'react'
-import {AppBar,Box,Toolbar,IconButton,Typography,Button, Menu, Avatar, MenuItem} from '@mui/material'
+import {AppBar,Box,Toolbar,IconButton,Typography, Menu, Avatar, MenuItem} from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import { Link } from 'react-router-dom';
-import AddBoxIcon from '@mui/icons-material/AddBox';
 import { auth,logout } from '../utils/firebase';
 
 export default function Navbar({setIsDrawerOpen}) {
@@ -40,14 +37,14 @@ export default function Navbar({setIsDrawerOpen}) {
             component="div"
            sx={{fontFamily: "source sans pro",fontWeight:"bold"}}
           >
-            Torii
+            Torii 2.0
           </Typography>
-          <Link to="/add">
+          {/* <Link to="/add">
           <Button startIcon={<AddBoxIcon />} variant="contained" sx={{background:"white",color:"GrayText",display:{xs:"none",md:"flex"},'&:hover': {
           backgroundColor: 'white',
           color: 'black',
          }}}>Add today's story</Button>
-  </Link>
+  </Link> */}
           <div>
               <IconButton
                 size="large"

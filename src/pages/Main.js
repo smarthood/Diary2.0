@@ -18,8 +18,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import TimeLine from './Timeline';
 import Album from './Album';
-
-
+import DateCalendarServerRequest from './Calender'
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 const useStyles = makeStyles((theme) => ({
       Card: {
         height: '100%',
@@ -46,6 +46,7 @@ export default function Main(){
 const classes = useStyles();
 const [isTLDrawerOpen,setTLDrawerOpen]=useState(false)
 const [isALDrawerOpen,setALDrawerOpen]=useState(false)
+const [isDLDrawerOpen,setDLDrawerOpen]=useState(false)
 const [data,setData]=useState([])
 const [notes,setNotes]=useState([])
 const [isDrawerOpen,setIsDrawerOpen] = useState(false)
@@ -93,6 +94,14 @@ const Items = (<List>
          <ListItemText primary="Album" />
        </ListItemButton>
      </ListItem>
+     <ListItem >
+       <ListItemButton onClick={()=>setDLDrawerOpen(true)} >
+         <ListItemIcon>
+           <CalendarMonthIcon />
+         </ListItemIcon>
+         <ListItemText primary="Calender" />
+       </ListItemButton>
+     </ListItem>
      <ListItem  >
        <ListItemButton onClick={()=>setTLDrawerOpen(true)}>
          <ListItemIcon>
@@ -129,6 +138,7 @@ return(
     <Add />
     <TimeLine  isTLDrawerOpen={isTLDrawerOpen} setTLDrawerOpen={setTLDrawerOpen} tdata={tdata} />
     <Album  isALDrawerOpen={isALDrawerOpen} setALDrawerOpen={setALDrawerOpen} tdata={tdata} />
+    <DateCalendarServerRequest isDLDrawerOpen={isDLDrawerOpen} setDLDrawerOpen={setDLDrawerOpen} tdata={tdata} />
     <Dialog
         fullScreen={fullScreen}
         open={open}
@@ -155,7 +165,7 @@ return(
      <Stack direction='row' justifyContent="space-between">
    <LeftBar Items={Items} />
   <DrawerComponent Items={Items} isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen}/>
-<Box flex={10} p={3} component="div" maxWidth="md">
+<Box sx={{width:'100%'}} p={3} component="div" maxWidth="md">
     <Grid  container spacing={4}  >
         {notes.length === 0 ? (
           <Box sx={{display:"flex",flexDirection: "column",alignItems: "center",width: "100%",height: "100vh"}}>
@@ -176,7 +186,6 @@ return(
                     <Button onClick={() => handleDelete(id,image)}>Delete</Button>
                   </CardActions>
                 </Card>
-               
                </Grid>))}
         </Grid>
         </Box>

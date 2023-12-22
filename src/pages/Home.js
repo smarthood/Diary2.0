@@ -73,7 +73,7 @@ return(
 <div className="meteor-14"></div>
 <div className="meteor-15"></div>
 <Box>
-    <Fade in={checked} {...(checked?{timeout:3000}:{})} collapsedHeight={50}>
+    <Fade in={checked} {...(checked?{timeout:3000}:{})} collapsedheight={50}>
     <Box sx={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",height:"100vh"}}>
         <Typography sx={{fontSize:"2rem",color:"white",textAlign:"center"}}>Start Write Your<span className='diary-text'> Diary</span> </Typography>
         <Button startIcon={<FcGoogle />} onClick={user ? logout : singInWithGoogle} variant="contained" sx={{background:"white",color:"black",marginTop:"30px"}}>
