@@ -12,7 +12,7 @@ export default function Add() {
         <Fab color='primary' sx={{
           position: 'fixed',
           bottom: 20,
-          left: "80%",
+          right: "5%",
           display: { md: "none" }
         }}>
           <AddIcon />
@@ -21,9 +21,9 @@ export default function Add() {
         <Button startIcon={<EditIcon  />} variant="contained" sx={{
           background: "dodgerblue", color: "white",
           position: 'fixed',
-          bottom: 80,
+          bottom: 20,
           zIndex:100,
-          left: "80%", display: { xs: "none", md: "flex" }, '&:hover': {
+          right: "3%", display: { xs: "none", md: "flex" }, '&:hover': {
             backgroundColor: 'white',
           }
         }}>Add today's story</Button>
