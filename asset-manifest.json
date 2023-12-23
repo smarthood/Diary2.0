@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/Diary2.0/static/css/main.0fff7c2e.css",
+    "main.js": "/Diary2.0/static/js/main.83dadb26.js",
+    "static/media/enter.png": "/Diary2.0/static/media/enter.77ed8072a816425daf15.png",
+    "static/media/albg.png": "/Diary2.0/static/media/albg.ea374cd6c1895d587de6.png",
+    "static/media/tlbg.png": "/Diary2.0/static/media/tlbg.00cf0874602acb692d79.png",
+    "index.html": "/Diary2.0/index.html",
+    "main.0fff7c2e.css.map": "/Diary2.0/static/css/main.0fff7c2e.css.map",
+    "main.83dadb26.js.map": "/Diary2.0/static/js/main.83dadb26.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0fff7c2e.css",
+    "static/js/main.83dadb26.js"
+  ]
+}
